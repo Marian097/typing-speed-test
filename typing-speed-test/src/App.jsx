@@ -1,13 +1,13 @@
 import './App.css'
-import Dashboard from './components/Dashboard'
 import Header from './components/Header'
+import TypingTest from './components/TypingTest'
 
 function App() {
 
   return (
     <>
     <Header/>
-    <Dashboard/>
+    <TypingTest/>
     </>
   )
 }
