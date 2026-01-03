@@ -1,7 +1,17 @@
 import React from "react";
 import "../assets/css/dashboard.css";
 
-export default function Dashboard() {
+export default function Dashboard({
+  wpm,
+  timeLeft,
+  diffGame,
+  accuaracyText,
+  onSetTime,
+  onSetNoTime,
+  onSetEasy,
+  onSetMedium,
+  onSetHard,
+}) {
   return (
     <nav className="m-dashboard">
       <div className="option">
@@ -12,11 +22,11 @@ export default function Dashboard() {
           <span>Accuaracy:</span>
         </div>
         <div className="option-container">
-          <span>Time:</span>
+          <span>Time:<span style = {{color: "white"}}>{timeLeft}</span></span>
           <span>
-            Difficulty:<button>Easy</button>
-            <button>Medium</button>
-            <button>Hard</button>
+            Difficulty:<button onClick = {() => onSetEasy()}>Easy</button>
+            <button onClick = {()=> onSetMedium()} >Medium</button>
+            <button onClick= {() => onSetHard()}>Hard</button>
           </span>
         </div>
         <div className="mode-container">

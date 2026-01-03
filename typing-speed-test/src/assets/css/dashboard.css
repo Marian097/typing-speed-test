@@ -46,3 +46,10 @@
 .option > div:last-child::after {
   display: none;
 }
+
+.option-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* mărește spațiul aici */
+}
+

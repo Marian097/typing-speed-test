@@ -1,10 +1,17 @@
-import React from 'react'
-import "../assets/css/input.css"
+import React from "react";
+import "../assets/css/input.css";
 
-export default function InputText({setFocus, text, onValidationText}) {
+const InputText = React.forwardRef(({ startTime, disabled }, ref) => {
   return (
-    <>
-    <input id = "hiddenInput"></input>
-    </>
-  )
-}
+    <div className="inputContainer">
+      <input
+        id="hiddenInput"
+        ref={ref}
+        onKeyDown={startTime}
+        disabled = {disabled}
+      />
+    </div>
+  );
+});
+
+export default InputText;

@@ -1,0 +1,26 @@
+.text-container{
+    height: 70vw;
+}
+
+
+
+.blur-container {
+    filter: blur(6px);
+    user-select: none;
+    pointer-events:none;
+}
+
+
+.center-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bt-start {
+    border-radius:7px;
+    height:30px;
+    color:aliceblue;
+    background-color:hsl(210, 100%, 65%);
+}
