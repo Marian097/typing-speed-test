@@ -4,13 +4,13 @@ import "../assets/css/dashboard.css";
 export default function Dashboard({
   wpm,
   timeLeft,
-  diffGame,
-  accuaracyText,
+  accuaracy,
   onSetTime,
   onSetNoTime,
   onSetEasy,
   onSetMedium,
   onSetHard,
+  disabled
 }) {
   return (
     <nav className="m-dashboard">
@@ -19,7 +19,7 @@ export default function Dashboard({
           <span>WPM:</span>
         </div>
         <div className="acc-container">
-          <span>Accuaracy:</span>
+          <span>Accuaracy:<span className = "acc-color">{accuaracy}%</span></span>
         </div>
         <div className="option-container">
           <span>Time:<span style = {{color: "white"}}>{timeLeft}</span></span>
@@ -31,8 +31,8 @@ export default function Dashboard({
         </div>
         <div className="mode-container">
           <span>
-            Mode: <button>Timed(60s)</button>
-            <button>Passage</button>
+            Mode: <button onClick = {() => onSetTime()}>Timed(60s)</button>
+            <button onClick = {() => onSetNoTime()} disabled = {disabled}>Passage</button>
           </span>
         </div>
       </div>

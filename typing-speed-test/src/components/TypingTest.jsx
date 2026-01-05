@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../assets/css/typing.css";
 import Dashboard from "./Dashboard";
 import InputText from "./InputText";
@@ -7,13 +7,14 @@ export default function TypingTest() {
   const inputRef = useRef(null);
   const [text, setText] = useState("");
   const [wpm, setWpm] = useState(0);
-  const [accuaracyText, setAccuaracyText] = useState(0);
+  const [accuaracy, setAccuaracy] = useState(100);
   const [diffGame, setDiffGame] = useState("easy");
   const [data, setData] = useState(null);
   const [currentText, setCurrentText] = useState(null);
   const [isStarted, setIsStarted] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
+  const [isPassage, setIsPassage] = useState(false);
 
   useEffect(() => {
     fetch("/data.json")
@@ -30,22 +31,34 @@ export default function TypingTest() {
     setCurrentText(list[randomIndex]);
   }, [data, diffGame]);
 
-
   useEffect(() => {
     if (!isRunning) return;
     const interval = setInterval(() => {
-      setTimeLeft(prev => prev - 1)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [isRunning])
-
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
   useEffect(() => {
-    if (timeLeft === 0)
-    {
-      setIsRunning(false)
+    if (!currentText) return;
+    let typed = text.length;
+    let target = currentText.text;
+    let result = 0;
+    for (let i = 0; i < Math.min(typed, target.length); i++) {
+      if (text[i].toLocaleLowerCase() === target[i].toLocaleLowerCase()) {
+        result += 1;
+        console.log(result);
+      }
     }
-  }, [timeLeft])
+
+    setAccuaracy((result / typed) * 100);
+  }, [text, currentText]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setIsRunning(false);
+    }
+  }, [timeLeft]);
 
   function easyBtn() {
     setDiffGame("easy");
@@ -59,19 +72,26 @@ export default function TypingTest() {
     setDiffGame("hard");
   }
 
-  function startGame(){
-    setIsStarted(true)
+  function startGame() {
+    setIsStarted(true);
     inputRef.current?.focus();
   }
 
-  function onKeyDown(){
-    if (isStarted && !isRunning)
-    {
-      setIsRunning(true)
+  function onKeyDown() {
+    if (isStarted && !isRunning) {
+      setIsRunning(true);
     }
   }
 
+  function setNoTime() {
+    setIsPassage(true);
+    setTimeLeft("no time");
+  }
 
+  function onSetTime() {
+    setIsPassage(false);
+    setTimeLeft(60);
+  }
 
   return (
     <>
@@ -79,20 +99,32 @@ export default function TypingTest() {
         onSetEasy={easyBtn}
         onSetMedium={mediumBtn}
         onSetHard={hardBtn}
-        timeLeft = {timeLeft}
+        timeLeft={timeLeft}
+        onSetNoTime={setNoTime}
+        onSetTime={onSetTime}
+        disabled={isPassage === true}
+        accuaracy={accuaracy}
       />
-      <InputText startTime = {onKeyDown} ref = {inputRef} disabled = {timeLeft == 0}/>
-      <div className = "text-container">
-      {isStarted === false ? (
-        <>
-          <div className="textWraper center-screen">
-            <button className="bt-start" onClick = {() => startGame()}>Start typing test</button>
-          </div>
-          <div className="blur-container">{currentText?.text}</div>
-        </>
-      ) : (
-        <div className="noblur-container">{currentText?.text}</div>
-      )}
+      <InputText
+        startTime={onKeyDown}
+        ref={inputRef}
+        disabled={timeLeft === 0}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <div className="text-container">
+        {isStarted === false ? (
+          <>
+            <div className="textWraper center-screen">
+              <button className="bt-start" onClick={() => startGame()}>
+                Start typing test
+              </button>
+            </div>
+            <div className="blur-container">{currentText?.text}</div>
+          </>
+        ) : (
+          <div className="noblur-container">{currentText?.text}</div>
+        )}
       </div>
     </>
   );

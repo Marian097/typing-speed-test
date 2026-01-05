@@ -53,3 +53,7 @@
   gap: 10px; /* mărește spațiul aici */
 }
 
+.acc-container span .acc-color {
+  color:hsl(0, 0%, 100%);
+}
+

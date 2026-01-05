@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/css/input.css";
 
-const InputText = React.forwardRef(({ startTime, disabled }, ref) => {
+const InputText = React.forwardRef(({ startTime, disabled, value, onChange}, ref) => {
   return (
     <div className="inputContainer">
       <input
@@ -9,6 +9,8 @@ const InputText = React.forwardRef(({ startTime, disabled }, ref) => {
         ref={ref}
         onKeyDown={startTime}
         disabled = {disabled}
+        value = {value}
+        onChange = {onChange}        
       />
     </div>
   );
