@@ -25,10 +25,10 @@ export default function TypingTest() {
   useEffect(() => {
     if (!data) return;
     console.log(Array.isArray(data.easy)); // true
-
     const list = data[diffGame];
     const randomIndex = Math.floor(Math.random() * list.length);
     setCurrentText(list[randomIndex]);
+    console.log(Array.isArray(data.easy));
   }, [data, diffGame]);
 
   useEffect(() => {
@@ -47,11 +47,17 @@ export default function TypingTest() {
     for (let i = 0; i < Math.min(typed, target.length); i++) {
       if (text[i].toLocaleLowerCase() === target[i].toLocaleLowerCase()) {
         result += 1;
-        console.log(result);
       }
     }
-
-    setAccuaracy((result / typed) * 100);
+    if (typed === 0)
+    {
+      setAccuaracy(100)
+    }
+    else {
+      setAccuaracy((result / typed) * 100);
+    }
+    
+  
   }, [text, currentText]);
 
   useEffect(() => {
@@ -59,6 +65,26 @@ export default function TypingTest() {
       setIsRunning(false);
     }
   }, [timeLeft]);
+
+
+  useEffect(() => {
+    if (!currentText) return;
+    let listText = currentText.text.split(" ");
+    let inputText = text.split(" ");
+    for (let i = 0; i < listText.length; i++)
+    {
+      for (let j = 0; j < inputText.length; j++)
+      {
+        if (inputText[j].trim() === listText[i].trim())
+        {
+          setWpm(prev => prev + 1)
+        }
+      }
+    }
+
+    console.log(wpm)
+
+  }, [text, currentText])
 
   function easyBtn() {
     setDiffGame("easy");
@@ -85,7 +111,6 @@ export default function TypingTest() {
 
   function setNoTime() {
     setIsPassage(true);
-    setTimeLeft("no time");
   }
 
   function onSetTime() {
@@ -104,6 +129,8 @@ export default function TypingTest() {
         onSetTime={onSetTime}
         disabled={isPassage === true}
         accuaracy={accuaracy}
+        isRunning={isRunning}
+        isPassage = {isPassage}
       />
       <InputText
         startTime={onKeyDown}
@@ -123,7 +150,31 @@ export default function TypingTest() {
             <div className="blur-container">{currentText?.text}</div>
           </>
         ) : (
-          <div className="noblur-container">{currentText?.text}</div>
+          <div className="noblur-container">
+            {currentText?.text.split("").map((ch, i) => {
+              if (i >= text.length) {
+                return (
+                  <span className="neutruCh" key={i}>
+                    {ch}
+                  </span>
+                );
+              }
+
+              if (text[i] === ch) {
+                return (
+                  <span className="correctCh" key={i}>
+                    {ch}
+                  </span>
+                );
+              } else {
+                return (
+                  <span className="wrongCh" key={i}>
+                    {ch}
+                  </span>
+                );
+              }
+            })}
+          </div>
         )}
       </div>
     </>

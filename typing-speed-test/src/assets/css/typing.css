@@ -24,3 +24,16 @@
     color:aliceblue;
     background-color:hsl(210, 100%, 65%);
 }
+
+
+.noblur-container .neutruCh{
+  color:hsl(0, 0%, 100%)
+}
+
+.noblur-container .correctCh{
+  color:green
+}
+
+.noblur-container .wrongCh{
+  color: red;
+}
