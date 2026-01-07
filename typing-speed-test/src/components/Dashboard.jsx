@@ -18,7 +18,7 @@ export default function Dashboard({
     <nav className="m-dashboard">
       <div className="option">
         <div className="wpm-container">
-          <span>WPM:</span>
+          <span>WPM:<span className = "wpm-score">{wpm}</span></span>
         </div>
         <div className="acc-container">
           {isRunning === false && isNaN(accuaracy) ? (

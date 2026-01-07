@@ -15,6 +15,7 @@ export default function TypingTest() {
   const [isRunning, setIsRunning] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const [isPassage, setIsPassage] = useState(false);
+  const [finishTime, setFinishTime] = useState(null);
 
   useEffect(() => {
     fetch("/data.json")
@@ -41,24 +42,26 @@ export default function TypingTest() {
 
   useEffect(() => {
     if (!currentText) return;
+    if (!isRunning) return;
+    if (timeLeft === 0) return;
+
+    if (text.length >= currentText.text.length) {
+      if (finishTime === null) setFinishTime(timeLeft);
+      return;
+    }
+
     let typed = text.length;
     let target = currentText.text;
     let result = 0;
-    for (let i = 0; i < Math.min(typed, target.length); i++) {
-      if (text[i].toLocaleLowerCase() === target[i].toLocaleLowerCase()) {
-        result += 1;
+
+    for (let i = 0; i < typed; i++) {
+      if (text[i]?.toLowerCase() === target[i]?.toLowerCase()) {
+        result++;
       }
     }
-    if (typed === 0)
-    {
-      setAccuaracy(100)
-    }
-    else {
-      setAccuaracy((result / typed) * 100);
-    }
-    
-  
-  }, [text, currentText]);
+
+    setAccuaracy(typed === 0 ? 100 : (result / typed) * 100);
+  }, [text, currentText, isRunning, timeLeft, finishTime]);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -66,25 +69,33 @@ export default function TypingTest() {
     }
   }, [timeLeft]);
 
-
   useEffect(() => {
     if (!currentText) return;
-    let listText = currentText.text.split(" ");
-    let inputText = text.split(" ");
-    for (let i = 0; i < listText.length; i++)
-    {
-      for (let j = 0; j < inputText.length; j++)
-      {
-        if (inputText[j].trim() === listText[i].trim())
-        {
-          setWpm(prev => prev + 1)
-        }
+    if (!isRunning) return;
+
+    if (text.trim() === "") {
+      setWpm(0);
+      return;
+    }
+
+    const elapsedSeconds =
+      finishTime !== null ? 60 - finishTime : 60 - timeLeft;
+
+    const minutes = elapsedSeconds / 60;
+    if (minutes <= 0) return;
+
+    let listText = currentText.text.trim().split(/\s+/);
+    let inputText = text.trim().split(/\s+/);
+    let goodWords = 0;
+
+    for (let i = 0; i < Math.min(inputText.length, listText.length); i++) {
+      if (inputText[i] === listText[i]) {
+        goodWords++;
       }
     }
 
-    console.log(wpm)
-
-  }, [text, currentText])
+    setWpm(Math.floor(goodWords / minutes));
+  }, [text, currentText, isRunning, finishTime, timeLeft]);
 
   function easyBtn() {
     setDiffGame("easy");
@@ -106,6 +117,7 @@ export default function TypingTest() {
   function onKeyDown() {
     if (isStarted && !isRunning) {
       setIsRunning(true);
+      return;
     }
   }
 
@@ -130,12 +142,13 @@ export default function TypingTest() {
         disabled={isPassage === true}
         accuaracy={accuaracy}
         isRunning={isRunning}
-        isPassage = {isPassage}
+        isPassage={isPassage}
+        wpm={wpm}
       />
       <InputText
         startTime={onKeyDown}
         ref={inputRef}
-        disabled={timeLeft === 0}
+        disabled={text.length >= currentText?.text.length}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -146,6 +159,9 @@ export default function TypingTest() {
               <button className="bt-start" onClick={() => startGame()}>
                 Start typing test
               </button>
+            </div>
+            <div className= "p-click">
+              <p>Or click the text and start typing</p>
             </div>
             <div className="blur-container">{currentText?.text}</div>
           </>

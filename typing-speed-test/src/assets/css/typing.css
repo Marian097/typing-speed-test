@@ -18,6 +18,16 @@
   transform: translate(-50%, -50%);
 }
 
+.p-click {
+  position:fixed;
+  top: 50%;
+  left:41%;
+}
+
+.p-click:hover {
+  cursor:pointer;
+}
+
 .bt-start {
     border-radius:7px;
     height:30px;
