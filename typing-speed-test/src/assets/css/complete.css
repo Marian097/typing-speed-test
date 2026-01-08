@@ -1,0 +1,129 @@
+.hero-main {
+  height: 70vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-completed {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  left: 50%;
+  top: 30%;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  background-color: #4dd67b05;
+}
+
+.img-completed .shadow-1 img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shadow-1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  background-color: #4dd67b1b;
+}
+
+.annoucement-container {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.annoucement-container p {
+  color: hsl(240, 2%, 63%);
+}
+
+.result-section {
+  border: 1px solid red;
+  position: relative;
+  height: 70vh;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container-result {
+  display: flex;
+  gap: 5rem;
+}
+
+.container-wpm,
+.container-acc,
+.container-ch {
+  border: 1px solid red;
+  height: 95px;
+  width: 150px;
+  border-radius: 5%;
+}
+
+.container-wpm h3 {
+  margin-left: 20px;
+}
+
+.container-wpm p,
+.container-acc p,
+.container-ch p {
+  margin-left: 20px;
+}
+
+.bt-container {
+  position: absolute;
+  justify-content: center;
+  border-radius: 20%;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bt-again {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.75rem 1.5rem;
+  min-height: 48px;
+
+  background-color: white;
+  color: #1a1a1a;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+
+  transition: all 0.15s ease;
+}
+
+.bt-again:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.bt-again:active {
+  transform: translateY(0);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.bt-again img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}

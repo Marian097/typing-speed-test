@@ -1,15 +1,16 @@
-import './App.css'
-import Header from './components/Header'
-import TypingTest from './components/TypingTest'
+import React from "react";
+import TypingTest from "./components/TypingTest";
+import useTypingGame from "./hooks/useTypingGame";
+import Header from "./components/Header";
+import CompleteTest from "./components/CompleteTest";
 
-function App() {
-
+export default function App() {
+  const game = useTypingGame();
   return (
     <>
-    <Header/>
-    <TypingTest/>
+      <Header wpm = {game.wpm}/>
+      <CompleteTest/>
+      {/* <TypingTest {...game} />; */}
     </>
-  )
+  );
 }
-
-export default App
