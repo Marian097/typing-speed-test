@@ -36,14 +36,14 @@ export default function CompleteTest() {
             <h3>Characters</h3>
             <p>hello</p>
           </div>
-        </div>
-      </section>
-      <div className = "bt-container">
+           <div className = "bt-container">
         <button className="bt-again">
           Go Again
           <img src={againPhoto} />
         </button>
       </div>
+        </div>
+      </section>
     </main>
   );
 }

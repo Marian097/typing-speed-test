@@ -48,7 +48,7 @@
 }
 
 .result-section {
-  border: 1px solid red;
+  margin-top:3%;
   position: relative;
   height: 70vh;
   flex-direction: row;
@@ -65,7 +65,6 @@
 .container-wpm,
 .container-acc,
 .container-ch {
-  border: 1px solid red;
   height: 95px;
   width: 150px;
   border-radius: 5%;
@@ -81,49 +80,23 @@
   margin-left: 20px;
 }
 
+
 .bt-container {
-  position: absolute;
-  justify-content: center;
-  border-radius: 20%;
-  top: 65%;
+  position:absolute;
   left: 50%;
+  top: 65%;
   transform: translate(-50%, -50%);
 }
 
-.bt-again {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 
-  padding: 0.75rem 1.5rem;
-  min-height: 48px;
-
-  background-color: white;
-  color: #1a1a1a;
-  font-weight: 600;
-
-  border: none;
-  border-radius: 999px;
-
-  cursor: pointer;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
-
-  transition: all 0.15s ease;
+.star-gold {
+  position:fixed;
+  left:90%;
+  top: 60%;
 }
 
-.bt-again:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.bt-again:active {
-  transform: translateY(0);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.bt-again img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
+.star-red {
+  position:fixed;
+  left:10%;
+  top: 30%;
 }
