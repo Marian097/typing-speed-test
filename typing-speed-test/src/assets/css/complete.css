@@ -100,3 +100,16 @@
   left:10%;
   top: 30%;
 }
+
+.container-result{
+  font-weight:bold;
+  
+}
+
+.container-ch .good-ch {
+  color:green;
+}
+
+.container-ch .wrong-ch {
+  color:red;
+}

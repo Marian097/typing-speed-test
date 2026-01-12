@@ -4,9 +4,9 @@ import againPhoto from "../assets/images/icon-restart.svg";
 import star2 from "../assets/images/pattern-star-2.svg";
 import star1 from "../assets/images/pattern-star-1.svg";
 
-export default function CompleteTest() {
+export default function CompleteTest({wpm, accuaracy, wrongCharacters, goodCharacters, resetGame}) {
   return (
-    <main classsName="hero-main">
+    <main className="hero-main">
       <div className="img-completed">
         <div className="shadow-1">
           <img src={imgComplete} />
@@ -26,22 +26,23 @@ export default function CompleteTest() {
         <div className="container-result">
           <div className="container-wpm">
             <h3>WPM:</h3>
-            <p>hello</p>
+            <p>{wpm}</p>
           </div>
           <div className="container-acc">
             <h3>Accuaracy</h3>
-            <p>hello</p>
+            { accuaracy < 100 ? <p style = {{color:"red"}}>{Math.floor(accuaracy)}%</p> : <p style = {{style: "green"}}>{Math.floor(accuaracy)}%</p>}
+            
           </div>
           <div className="container-ch">
             <h3>Characters</h3>
-            <p>hello</p>
+            <span className = "good-ch">{goodCharacters}/<span className = "wrong-ch">{wrongCharacters}</span></span>
           </div>
-           <div className = "bt-container">
-        <button className="bt-again">
-          Go Again
-          <img src={againPhoto} />
-        </button>
-      </div>
+          <div className="bt-container">
+            <button className="bt-again" onClick = {() => resetGame()}>
+              Go Again
+              <img src={againPhoto} />
+            </button>
+          </div>
         </div>
       </section>
     </main>

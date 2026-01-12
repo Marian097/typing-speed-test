@@ -8,9 +8,10 @@ export default function App() {
   const game = useTypingGame();
   return (
     <>
-      <Header wpm = {game.wpm}/>
-      <CompleteTest/>
-      {/* <TypingTest {...game} />; */}
+      <Header bestWpm = {game.bestWpm}/>
+      {
+        game.isFinish === true  ? <CompleteTest wpm = {game.wpm} accuaracy = {game.accuaracy} resetGame = {game.resetGame} wrongCharacters = {game.wrongCharacters} goodCharacters = {game.goodCharacters} />  : <TypingTest {...game} />
+      }
     </>
   );
 }

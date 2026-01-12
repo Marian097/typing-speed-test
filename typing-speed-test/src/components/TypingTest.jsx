@@ -55,9 +55,8 @@ export default function TypingTest({
                 Start typing test
               </button>
             </div>
-
             <div className="p-click">
-              <p>Or click the text and start typing</p>
+              <p onClick={() => startGame()}>Or click the text and start typing</p>
             </div>
 
             <div className="blur-container">{currentText?.text}</div>

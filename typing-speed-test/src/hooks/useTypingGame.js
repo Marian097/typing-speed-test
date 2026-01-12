@@ -1,9 +1,28 @@
 // src/hooks/useTypingGame.js
 import { useEffect, useRef, useState } from "react";
 
+function loadResults(){
+  try{
+    return JSON.parse(localStorage.getItem("results") ?? "[]")
+  }
+  catch{
+    return []
+  }
+}
+
+function loadBest(){
+   try{
+    return JSON.parse(localStorage.getItem("best") ?? "[]")
+  }
+  catch{
+    return []
+  }
+}
+
+
+
 export default function useTypingGame() {
   const inputRef = useRef(null);
-
   const [text, setText] = useState("");
   const [wpm, setWpm] = useState(0);
   const [accuaracy, setAccuaracy] = useState(100);
@@ -15,6 +34,11 @@ export default function useTypingGame() {
   const [timeLeft, setTimeLeft] = useState(60);
   const [isPassage, setIsPassage] = useState(false);
   const [finishTime, setFinishTime] = useState(null);
+  const [results, setResults] = useState(loadResults);
+  const [bestWpm, setBestWpm] = useState(loadBest);
+  const [isFinish, setIsFinish] = useState(false);
+  const [wrongCharacters, setWrongCharacters] = useState(0);
+  const [goodCharacters, setGoodCharacters] = useState(0);
 
   // fetch data
   useEffect(() => {
@@ -47,6 +71,7 @@ export default function useTypingGame() {
     if (timeLeft === 0) return;
 
     if (text.length >= currentText.text.length) {
+      setIsFinish(true);
       if (finishTime === null) setFinishTime(timeLeft);
       return;
     }
@@ -79,7 +104,8 @@ export default function useTypingGame() {
       return;
     }
 
-    const elapsedSeconds = finishTime !== null ? 60 - finishTime : 60 - timeLeft;
+    const elapsedSeconds =
+    finishTime !== null ? 60 - finishTime : 60 - timeLeft;
     const minutes = elapsedSeconds / 60;
     if (minutes <= 0) return;
 
@@ -94,7 +120,66 @@ export default function useTypingGame() {
     setWpm(Math.floor(goodWords / minutes));
   }, [text, currentText, isRunning, finishTime, timeLeft]);
 
-  // handlers (same ca în TypingTest.jsx :contentReference[oaicite:0]{index=0})
+
+  // Result
+  useEffect(() => {
+    if (!isFinish) return;
+    const score = wpm
+
+    setResults(prev => {
+      const next = [...prev, score]
+      localStorage.setItem("results", JSON.stringify(next));
+      return next
+    })
+  }, [isFinish, wpm])
+
+//Set best score in localStorage
+  useEffect(() => {
+    if (!isFinish) return;
+    const list = results;
+    let best = 0;
+    for (let i = 0; i < list.length; i++)
+    {
+      if (list[i] > best)
+      {
+        best = list[i]
+        localStorage.setItem("best", JSON.stringify(best))
+      }
+    }
+  }, [isFinish, results])
+
+
+  //Best score on page
+  useEffect(() => {
+    if (!isFinish) return;
+    const best = JSON.parse(localStorage.getItem("best"));
+    setBestWpm(best)
+
+  }, [isFinish])
+
+
+  useEffect(() => {
+    if (!currentText) return;
+    if (!isRunning) return;
+    
+    const target = currentText.text;
+
+    let correct = 0;
+    let wrong = 0;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === target[i]) {
+        correct++;
+      }
+      else {
+        wrong++
+      }
+    }
+
+    setGoodCharacters(correct)
+    setWrongCharacters(wrong)
+  }, [currentText, isRunning, text])
+
+
   function easyBtn() {
     setDiffGame("easy");
   }
@@ -125,12 +210,28 @@ export default function useTypingGame() {
     setTimeLeft(60);
   }
 
+  function resetGame() {
+  setText("");
+  setWpm(0);
+  setAccuaracy(100);
+  setTimeLeft(60);
+  setWrongCharacters(0)
+  setGoodCharacters(0)
+  setFinishTime(null);
+  setIsFinish(false);
+  setIsRunning(false);
+  setIsStarted(true);
+  inputRef.current?.focus();
+}
+
+
   return {
     // refs
     inputRef,
 
     // state
     text,
+    bestWpm,
     wpm,
     accuaracy,
     currentText,
@@ -138,6 +239,9 @@ export default function useTypingGame() {
     isRunning,
     timeLeft,
     isPassage,
+    isFinish,
+    wrongCharacters,
+    goodCharacters,
 
     // setters/handlers
     setText,
@@ -148,5 +252,6 @@ export default function useTypingGame() {
     easyBtn,
     mediumBtn,
     hardBtn,
+    resetGame
   };
 }
