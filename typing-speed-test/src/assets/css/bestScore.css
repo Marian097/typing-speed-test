@@ -89,18 +89,6 @@
 }
 
 
-.star-gold {
-  position:fixed;
-  left:90%;
-  top: 60%;
-}
-
-.star-red {
-  position:fixed;
-  left:10%;
-  top: 30%;
-}
-
 .container-result{
   font-weight:bold;
   
@@ -160,4 +148,9 @@
 .bt-again:active {
   transform: translateY(0);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.patt-confetti {
+  position:relative;
+  background-image:url("../images/pattern-confetti.svg");
 }
