@@ -1,6 +1,5 @@
 // TypingTest.jsx
 import React from "react";
-import "../assets/css/typing.css";
 import Dashboard from "./Dashboard";
 import InputText from "./InputText";
 
@@ -47,26 +46,26 @@ export default function TypingTest({
         onChange={(e) => setText(e.target.value)}
       />
 
-      <div className="text-container">
+      <div className="flex relative h-screen">
         {isStarted === false ? (
           <>
-            <div className="textWraper center-screen">
-              <button className="bt-start" onClick={() => startGame()}>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1/3">
+              <button className="btn" onClick={() => startGame()}>
                 Start typing test
               </button>
             </div>
-            <div className="p-click">
-              <p onClick={() => startGame()}>Or click the text and start typing</p>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1/5 md:w-auto">
+              <p className = "text-sm md:text-lg text-center" onClick={() => startGame()}>Or click the text and start typing</p>
             </div>
 
-            <div className="blur-container">{currentText?.text}</div>
+            <div className="blur-sm absolute">{currentText?.text}</div>
           </>
         ) : (
-          <div className="noblur-container">
+          <div>
             {currentText?.text.split("").map((ch, i) => {
               if (i >= text.length) {
                 return (
-                  <span className="neutruCh" key={i}>
+                  <span className="text-gray-200" key={i}>
                     {ch}
                   </span>
                 );
@@ -74,14 +73,14 @@ export default function TypingTest({
 
               if (text[i] === ch) {
                 return (
-                  <span className="correctCh" key={i}>
+                  <span className="text-green-700" key={i}>
                     {ch}
                   </span>
                 );
               }
 
               return (
-                <span className="wrongCh" key={i}>
+                <span className="text-red-700 underline" key={i}>
                   {ch}
                 </span>
               );
