@@ -22,4 +22,8 @@
   .btn {
     @apply bg-blue-400 rounded-sm w-34 h-10 font-medium text-amber-50 shadow-md;
   }
+
+  .btn-dash {
+    @apply rounded-sm w-20 h-7 shadow-md border-2 hover:bg-red-800 font-stretch-50%
+  }
 }

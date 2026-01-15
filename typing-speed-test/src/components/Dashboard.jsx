@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/css/dashboard.css";
+import DropdownDiff from "../components/DropdownDiff"
 
 export default function Dashboard({
   wpm,
@@ -12,50 +12,60 @@ export default function Dashboard({
   onSetHard,
   disabled,
   isRunning,
-  isPassage
+  isPassage,
 }) {
+  const isMobile = window.innerWidth < 768;
   return (
-    <nav className="m-dashboard">
-      <div className="option">
-        <div className="wpm-container">
-          <span>WPM:<span className = "wpm-score">{wpm}</span></span>
+    <nav className="w-full h-15 md:h-10">
+      <div className="flex justify-between">
+        <div className="ml-5">
+          <span>
+            WPM:<span className="">{wpm}</span>
+          </span>
         </div>
-        <div className="acc-container">
+        <div className="">
           {isRunning === false && isNaN(accuaracy) ? (
             <span>
-              Accuaracy:<span className="acc-color">0%</span>
+              Accuaracy:<span className="">0%</span>
             </span>
           ) : (
             <span>
-              Accuaracy:<span className="acc-color">{Math.floor(accuaracy)}%</span>
+              Accuaracy:<span className="">{Math.floor(accuaracy)}%</span>
             </span>
           )}
         </div>
-        <div className="option-container">
+        <div className="">
           {isPassage === true ? (
-            <span>
-              Time:<span style={{ color: "white" }}>-</span>
-            </span>
+            <>
+              <span>
+                Time:<span style={{ color: "white" }}>-</span>
+              </span>
+            </>
           ) : (
-            <span>
-              Time:<span style={{ color: "white" }}>{timeLeft}</span>
-            </span>
+            <>
+              {isMobile ? <DropdownDiff/> : (
+                <div className = "flex gap-2">
+                  <span>
+                    Time:<span style={{ color: "white" }}>{timeLeft}</span>
+                  </span>
+                  <span className = "flex gap-2">
+                    Difficulty:<button onClick={() => onSetEasy()} className = "btn-dash text-sm">Easy</button>
+                    <button onClick={() => onSetMedium()} className="btn-dash text-sm">Medium</button>
+                    <button onClick={() => onSetHard()} className="btn-dash text-sm">Hard</button>
+                  </span>
+                </div>
+              )}
+            </>
           )}
-          <span>
-            Difficulty:<button onClick={() => onSetEasy()}>Easy</button>
-            <button onClick={() => onSetMedium()}>Medium</button>
-            <button onClick={() => onSetHard()}>Hard</button>
-          </span>
         </div>
-        <div className="mode-container">
-          <span>
-            Mode: <button onClick={() => onSetTime()}>Timed(60s)</button>
-            <button onClick={() => onSetNoTime()} disabled={disabled}>
-              Passage
-            </button>
-          </span>
+        <div className="flex gap-x-2 mr-5">
+            <span>
+              Mode:</span> <button onClick={() => onSetTime()} className = "btn-dash"><span className = "text-sm">Timed(60s)</span></button>
+              <button onClick={() => onSetNoTime()} disabled={disabled} className = "btn-dash text-sm">
+                <span>Passage</span>
+              </button>
+          </div>
         </div>
-      </div>
     </nav>
   );
 }
