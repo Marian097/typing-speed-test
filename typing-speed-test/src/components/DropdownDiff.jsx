@@ -4,7 +4,7 @@ export default function DropdownDiff({ onSetEasy, onSetMedium, onSetHard }) {
     <>
         <select
           defaultValue="easy"
-          className="absolute right-10 top-10 bg-black border-2 rounded-md"
+          className="bg-black border-2 rounded-md sm:text-xl sm:mt-10"
           onChange={(e) => {
             const dif = e.target.value;
             if (dif === "easy") onSetEasy?.();

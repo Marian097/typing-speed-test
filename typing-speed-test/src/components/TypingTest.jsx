@@ -58,7 +58,7 @@ export default function TypingTest({
               <p className = "text-sm md:text-lg text-center" onClick={() => startGame()}>Or click the text and start typing</p>
             </div>
 
-            <div className="blur-sm absolute">{currentText?.text}</div>
+            <div className="blur-sm absolute"><p>{currentText?.text}</p></div>
           </>
         ) : (
           <div>

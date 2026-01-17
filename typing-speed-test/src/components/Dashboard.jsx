@@ -1,5 +1,7 @@
 import React from "react";
-import DropdownDiff from "../components/DropdownDiff";
+import DropdownDiff from "./DropdownDiff";
+import CoutingBar from "./CoutingBar";
+import DropdownMode from "./DropdownMode";
 
 export default function Dashboard({
   wpm,
@@ -16,87 +18,125 @@ export default function Dashboard({
 }) {
   const isMobile = window.innerWidth < 768;
   return (
-    <nav className="w-full h-15 md:h-10">
-      <div className="flex justify-between flex-wrap">
-        <div className="ml-5">
-          <span className = "ml-15">
-            WPM:<span className="">{wpm}</span>
-          </span>
+    <>
+      {isMobile ? (
+        <div>
+          <CoutingBar
+            wpm={wpm}
+            timeLeft={timeLeft}
+            accuaracy={accuaracy}
+            isRunning={isRunning}
+            isPassage={isPassage}
+          />
+          <div className = "flex mt-7 justify-center gap-x-2 pb-10">
+            <DropdownMode onSetTime = {onSetTime} onSetNoTime = {onSetNoTime}/>
+            <DropdownDiff onSetEasy = {onSetEasy} onSetMedium ={onSetMedium} onSetHard = {onSetHard}/>
+          </div>
         </div>
-        <div className="">
-          {isRunning === false && isNaN(accuaracy) ? (
-            <span>
-              Accuaracy:<span className="">0%</span>
-            </span>
-          ) : (
-            <span>
-              Accuaracy:<span className="">{Math.floor(accuaracy)}%</span>
-            </span>
-          )}
-        </div>
-        <div className="">
-          {isPassage === true ? (
-            <>
-              <span>
-                Time:<span style={{ color: "white" }}>-</span>
+      ) : (
+        <nav className="w-full md:h-10">
+          <div className="flex justify-between flex-wrap">
+            <div className="">
+              <span className="ml-15">
+                WPM:<span className="">{wpm}</span>
               </span>
-            </>
-          ) : (
-            <>
-              {isMobile ? (
-                <div className = "relative">
-                  {" "}
-                  <DropdownDiff
-                    onSetEasy={onSetEasy}
-                    onSetMedium={onSetMedium}
-                    onSetHard={onSetHard}
-                  />
-                </div>
+            </div>
+            <div className="">
+              {isRunning === false && isNaN(accuaracy) ? (
+                <span>
+                  Accuaracy:<span className="">0%</span>
+                </span>
               ) : (
-                <div className="flex gap-2">
+                <span>
+                  Accuaracy:<span className="">{Math.floor(accuaracy)}%</span>
+                </span>
+              )}
+            </div>
+            <div className="">
+              {isPassage === true ? (
+                <div className="flex gap-x-4">
                   <span>
-                    Time:<span style={{ color: "white" }}>{timeLeft}</span>
+                    Time:<span style={{ color: "white" }}>-</span>
                   </span>
-                  <span className="flex gap-2">
-                    Difficulty:
+                  <span>Difficulty:</span>
+                  <div>
                     <button
                       onClick={() => onSetEasy()}
                       className="btn-dash text-sm"
                     >
                       Easy
                     </button>
+                  </div>
+                  <div>
                     <button
                       onClick={() => onSetMedium()}
                       className="btn-dash text-sm"
                     >
                       Medium
                     </button>
+                  </div>
+                  <div>
+                    {" "}
                     <button
                       onClick={() => onSetHard()}
                       className="btn-dash text-sm"
                     >
                       Hard
                     </button>
-                  </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-x-4">
+                  <div>
+                    <span>
+                      Time:<span style={{ color: "white" }}>{timeLeft}</span>
+                    </span>
+                  </div>
+                  <span>Difficulty:</span>
+                  <div>
+                    <button
+                      onClick={() => onSetEasy()}
+                      className="btn-dash text-sm"
+                    >
+                      Easy
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => onSetMedium()}
+                      className="btn-dash text-sm"
+                    >
+                      Medium
+                    </button>
+                  </div>
+                  <div>
+                    {" "}
+                    <button
+                      onClick={() => onSetHard()}
+                      className="btn-dash text-sm"
+                    >
+                      Hard
+                    </button>
+                  </div>
                 </div>
               )}
-            </>
-          )}
-        </div>
-        <div className="flex gap-x-2 mr-5">
-          <span>Mode:</span>{" "}
-          <button onClick={() => onSetTime()} className="btn-dash">
-            <span className="text-sm">Timed(60s)</span>
-          </button>
-          <button
-            onClick={() => onSetNoTime()}
-            disabled={disabled}
-            className="btn-dash text-sm"
-          >
-            <span>Passage</span>
-          </button>
-        </div>
-      </div>
-    </nav>
+            </div>
+            <div className="flex gap-x-2 mr-5">
+              <span>Mode:</span>{" "}
+              <button onClick={() => onSetTime()} className="btn-dash">
+                <span className="text-sm">Timed(60s)</span>
+              </button>
+              <button
+                onClick={() => onSetNoTime()}
+                disabled={disabled}
+                className="btn-dash text-sm"
+              >
+                <span>Passage</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      )}
+    </>
   );
 }
