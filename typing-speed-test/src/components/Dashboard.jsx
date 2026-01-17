@@ -1,5 +1,5 @@
 import React from "react";
-import DropdownDiff from "../components/DropdownDiff"
+import DropdownDiff from "../components/DropdownDiff";
 
 export default function Dashboard({
   wpm,
@@ -17,9 +17,9 @@ export default function Dashboard({
   const isMobile = window.innerWidth < 768;
   return (
     <nav className="w-full h-15 md:h-10">
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap">
         <div className="ml-5">
-          <span>
+          <span className = "ml-15">
             WPM:<span className="">{wpm}</span>
           </span>
         </div>
@@ -43,15 +43,40 @@ export default function Dashboard({
             </>
           ) : (
             <>
-              {isMobile ? <DropdownDiff/> : (
-                <div className = "flex gap-2">
+              {isMobile ? (
+                <div className = "relative">
+                  {" "}
+                  <DropdownDiff
+                    onSetEasy={onSetEasy}
+                    onSetMedium={onSetMedium}
+                    onSetHard={onSetHard}
+                  />
+                </div>
+              ) : (
+                <div className="flex gap-2">
                   <span>
                     Time:<span style={{ color: "white" }}>{timeLeft}</span>
                   </span>
-                  <span className = "flex gap-2">
-                    Difficulty:<button onClick={() => onSetEasy()} className = "btn-dash text-sm">Easy</button>
-                    <button onClick={() => onSetMedium()} className="btn-dash text-sm">Medium</button>
-                    <button onClick={() => onSetHard()} className="btn-dash text-sm">Hard</button>
+                  <span className="flex gap-2">
+                    Difficulty:
+                    <button
+                      onClick={() => onSetEasy()}
+                      className="btn-dash text-sm"
+                    >
+                      Easy
+                    </button>
+                    <button
+                      onClick={() => onSetMedium()}
+                      className="btn-dash text-sm"
+                    >
+                      Medium
+                    </button>
+                    <button
+                      onClick={() => onSetHard()}
+                      className="btn-dash text-sm"
+                    >
+                      Hard
+                    </button>
                   </span>
                 </div>
               )}
@@ -59,13 +84,19 @@ export default function Dashboard({
           )}
         </div>
         <div className="flex gap-x-2 mr-5">
-            <span>
-              Mode:</span> <button onClick={() => onSetTime()} className = "btn-dash"><span className = "text-sm">Timed(60s)</span></button>
-              <button onClick={() => onSetNoTime()} disabled={disabled} className = "btn-dash text-sm">
-                <span>Passage</span>
-              </button>
-          </div>
+          <span>Mode:</span>{" "}
+          <button onClick={() => onSetTime()} className="btn-dash">
+            <span className="text-sm">Timed(60s)</span>
+          </button>
+          <button
+            onClick={() => onSetNoTime()}
+            disabled={disabled}
+            className="btn-dash text-sm"
+          >
+            <span>Passage</span>
+          </button>
         </div>
+      </div>
     </nav>
   );
 }
