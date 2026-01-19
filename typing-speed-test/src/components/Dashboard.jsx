@@ -3,7 +3,6 @@ import DropdownDiff from "../components/mobile/DropdownDiff";
 import CoutingBar from "./mobile/CoutingBar";
 import DropdownMode from "./mobile/DropdownMode";
 
-
 export default function Dashboard({
   wpm,
   timeLeft,
@@ -43,7 +42,7 @@ export default function Dashboard({
               WPM:<span>{wpm}</span>
             </span>
           </div>
-          <div >
+          <div>
             {isRunning === false && isNaN(accuaracy) ? (
               <span>
                 Accuaracy:<span>0%</span>
@@ -54,7 +53,7 @@ export default function Dashboard({
               </span>
             )}
           </div>
-          <div >
+          <div>
             {isPassage === true ? (
               <div className="flex gap-x-4">
                 <span>
