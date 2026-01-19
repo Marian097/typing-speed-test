@@ -4,6 +4,7 @@ import useTypingGame from "./hooks/useTypingGame";
 import Header from "./components/Header";
 import CompleteTest from "./components/CompleteTest";
 import BestScore from "./components/BestScore";
+import Complete from "./components/mobile/Complete";
 
 export default function App() {
   const game = useTypingGame();
@@ -20,13 +21,27 @@ export default function App() {
             resetGame={game.resetGame}
           />
         ) : (
-          <CompleteTest
-            wpm={game.wpm}
-            accuaracy={game.accuaracy}
-            wrongCharacters={game.wrongCharacters}
-            goodCharacters={game.goodCharacters}
-            resetGame={game.resetGame}
-          />
+          <>
+            <div className="md:hidden block">
+              <Complete
+                wpm={game.wpm}
+                accuaracy={game.accuaracy}
+                wrongCharacters={game.wrongCharacters}
+                goodCharacters={game.goodCharacters}
+                resetGame={game.resetGame}
+                bestWpm={game.bestWpm}
+              />
+            </div>
+            <div className="hidden">
+              <CompleteTest
+                wpm={game.wpm}
+                accuaracy={game.accuaracy}
+                wrongCharacters={game.wrongCharacters}
+                goodCharacters={game.goodCharacters}
+                resetGame={game.resetGame}
+              />
+            </div>
+          </>
         )
       ) : (
         <TypingTest

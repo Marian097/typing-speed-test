@@ -13,10 +13,10 @@ export default function Header({ bestWpm }) {
         <div className="ml-auto flex items-center gap-2">
           <img src={cupImg} alt="cup" className="h-3 md:h-4" />
 
-          <span className="text-sm md:text-lg whitespace-nowrap">
+          <span className="text-xs sm:text-sm md:text-md lg:text-lg whitespace-nowrap sm:mr-5">
             <span className="md:inline">Personal best:</span>
-            <span className="ml-2 font-medium">{bestWpm}</span>
-            <span className="ml-2">WPM</span>
+            <span className="ml-2">{bestWpm}</span>
+            <span className="mr-2">WPM</span>
           </span>
         </div>
       </div>

@@ -46,7 +46,7 @@ export default function TypingTest({
         onChange={(e) => setText(e.target.value)}
       />
 
-      <div className="flex relative h-screen">
+      <div className="flex relative h-screen py-5">
         {isStarted === false ? (
           <>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1/3">

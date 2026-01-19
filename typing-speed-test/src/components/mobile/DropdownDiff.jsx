@@ -1,10 +1,8 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function DropdownDiff({ onSetEasy, onSetMedium, onSetHard }) {
   return (
     <>
-    <select defaultValue = "easy" className = "bg-black border-2 rounded-md"
+    <select defaultValue = "easy" className = "bg-black border-2 rounded-md w-30 text-amber-50 mt-15"
     onChange = {(e) => {
       const dif = e.target.value
       if (dif === "easy") onSetEasy()

@@ -21,7 +21,7 @@ export default function CompleteTest({
             </div>
           </div>
           <div className="star-red">
-            <img src={star2} />
+            <img src={star2}/>
           </div>
           <div className="star-gold">
             <img src={star1} />
