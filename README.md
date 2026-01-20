@@ -28,9 +28,6 @@ A typing speed test web application where users can measure their typing speed (
 - **Vite**
 - **GitHub Pages** (deployment)
 
-## 📸 Screenshots
-*(optional – add 1–2 screenshots here)*
-
 ## 📂 What I learned
 - Managing complex state with React hooks
 - Controlled components (`select`, inputs)
