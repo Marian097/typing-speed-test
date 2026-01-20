@@ -1,11 +1,12 @@
 import React from "react"; 
 
-export default function DropdownMode({onSetTime, onSetNoTime}) {
+export default function DropdownMode({onSetTime, onSetNoTime, defaultMode, setDefaultMode}) {
   return (
     <>
-    <select defaultValue = "60" className = "bg-black border-2 rounded-md w-30 text-amber-50 mt-15"
+    <select value = {defaultMode} className = "bg-black border-2 rounded-md w-30 text-amber-50 mt-15"
     onChange = {(e) => {
       const dif = e.target.value
+      setDefaultMode(dif)
       if (dif === "60") onSetTime()
       if (dif === "0") onSetNoTime()
     }}>

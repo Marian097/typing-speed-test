@@ -15,6 +15,10 @@ export default function Dashboard({
   disabled,
   isRunning,
   isPassage,
+  defaultMode,
+  setDefaultMode,
+  defaultDifficulty,
+  setDefaultDifficulty,
 }) {
   return (
     <>
@@ -32,11 +36,14 @@ export default function Dashboard({
               onSetEasy={onSetEasy}
               onSetMedium={onSetMedium}
               onSetHard={onSetHard}
+              defaultDifficulty = {defaultDifficulty}
+              setDefaultDifficulty = {setDefaultDifficulty}
+              
             />
-            <DropdownMode onSetTime={onSetTime} onSetNoTime={onSetNoTime} />
+            <DropdownMode onSetTime={onSetTime} onSetNoTime={onSetNoTime} defaultMode = {defaultMode} setDefaultMode = {setDefaultMode}/>
           </div>
         </div>
-        <div className="md:flex hidden md:gap-x-2 md:w-screen justify-between">
+        <div className="md:flex hidden md:gap-x-1 md:w-full justify-between">
           <div>
             <span>
               WPM:<span>{wpm}</span>
@@ -55,7 +62,7 @@ export default function Dashboard({
           </div>
           <div>
             {isPassage === true ? (
-              <div className="flex gap-x-4">
+              <div className="flex gap-x-2">
                 <span>
                   Time:<span style={{ color: "white" }}>-</span>
                 </span>
@@ -87,7 +94,7 @@ export default function Dashboard({
                 </div>
               </div>
             ) : (
-              <div className="flex gap-x-4">
+              <div className="flex gap-x-2">
                 <div>
                   <span>
                     Time:<span style={{ color: "white" }}>{timeLeft}</span>
@@ -122,7 +129,7 @@ export default function Dashboard({
               </div>
             )}
           </div>
-          <div className="flex gap-x-2 mr-5">
+          <div className="flex mr-5">
             <span>Mode:</span>{" "}
             <button onClick={() => onSetTime()} className="btn-dash">
               <span className="text-sm">Timed(60s)</span>

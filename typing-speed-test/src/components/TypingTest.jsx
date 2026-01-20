@@ -21,6 +21,10 @@ export default function TypingTest({
   easyBtn,
   mediumBtn,
   hardBtn,
+  defaultMode,
+  setDefaultMode,
+  defaultDifficulty,
+  setDefaultDifficulty,
 }) {
   return (
     <>
@@ -36,6 +40,11 @@ export default function TypingTest({
         isRunning={isRunning}
         isPassage={isPassage}
         wpm={wpm}
+        defaultMode = {defaultMode}
+        setDefaultMode = {setDefaultMode}
+        defaultDifficulty = {defaultDifficulty}
+        setDefaultDifficulty = {setDefaultDifficulty}
+     
       />
 
       <InputText

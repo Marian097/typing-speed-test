@@ -17,6 +17,24 @@ function loadBest() {
   }
 }
 
+function loadDefaultMode(){
+  try{
+    return JSON.parse(localStorage.getItem("mode") ?? "60")
+  }
+  catch{
+    return "60";
+  }
+}
+
+function loadDefaultDifficulty(){
+  try{
+    return JSON.parse(localStorage.getItem("dif") ?? "easy")
+  }
+  catch{
+    return "easy";
+  }
+}
+
 export default function useTypingGame() {
   const inputRef = useRef(null);
   const [text, setText] = useState("");
@@ -35,6 +53,8 @@ export default function useTypingGame() {
   const [isFinish, setIsFinish] = useState(false);
   const [wrongCharacters, setWrongCharacters] = useState(0);
   const [goodCharacters, setGoodCharacters] = useState(0);
+  const [defaultMode, setDefaultMode] = useState(loadDefaultMode);
+  const [defaultDifficulty, setDefaultDifficulty] = useState(loadDefaultDifficulty);
 
   // fetch data
   useEffect(() => {
@@ -174,6 +194,45 @@ export default function useTypingGame() {
     }
   }, [isStarted, isRunning]);
 
+  useEffect(() => {
+    const mode = defaultMode
+    setDefaultMode(mode);
+    localStorage.setItem("mode", JSON.stringify(mode))
+      
+  }, [defaultMode])
+
+  useEffect(() => {
+    const dif = defaultDifficulty;
+    setDefaultDifficulty(dif)
+    localStorage.setItem("dif", JSON.stringify(dif))
+  },[defaultDifficulty])
+
+  
+  
+  useEffect(() => {
+  setIsPassage(defaultMode === "0");
+  if (defaultMode === "60") setTimeLeft(60);
+}, [defaultMode]);
+
+
+useEffect(() => {
+  if (defaultDifficulty === "easy")
+  {
+    setDiffGame("easy")
+  }
+   if (defaultDifficulty === "medium")
+  {
+    setDiffGame("medium")
+  }
+   if (defaultDifficulty === "hard")
+  {
+    setDiffGame("hard")
+  }
+}, [defaultDifficulty])
+
+
+  
+  
   function easyBtn() {
     setDiffGame("easy");
     inputRef.current?.focus();
@@ -205,6 +264,7 @@ export default function useTypingGame() {
 
   function onSetTime() {
     setIsPassage(false);
+    inputRef.current?.focus();
     setTimeLeft(60);
   }
 
@@ -220,6 +280,8 @@ export default function useTypingGame() {
     setIsFinish(false);
     setIsRunning(false);
     setIsStarted(true);
+    setDefaultMode(loadDefaultMode);
+    setDefaultDifficulty(loadDefaultDifficulty);
   }
 
   return {
@@ -239,6 +301,10 @@ export default function useTypingGame() {
     isFinish,
     wrongCharacters,
     goodCharacters,
+    defaultMode,
+    defaultDifficulty,
+   
+    
 
     // setters/handlers
     setText,
@@ -250,5 +316,7 @@ export default function useTypingGame() {
     mediumBtn,
     hardBtn,
     resetGame,
+    setDefaultMode,
+    setDefaultDifficulty,
   };
 }

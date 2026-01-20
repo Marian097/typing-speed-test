@@ -1,13 +1,14 @@
 import React from "react"; 
 
-export default function DropdownDiff({ onSetEasy, onSetMedium, onSetHard }) {
+export default function DropdownDiff({ onSetEasy, onSetMedium, onSetHard, defaultDifficulty, setDefaultDifficulty}) {
   return (
     <>
         <select
-          defaultValue="easy"
-          className="bg-black border-2 rounded-md sm:text-xl sm:mt-10 h-10"
+          value = {defaultDifficulty}
+          className="bg-black border-2 rounded-md w-30 text-amber-50 mt-15"
           onChange={(e) => {
             const dif = e.target.value;
+            setDefaultDifficulty(dif);
             if (dif === "easy") onSetEasy?.();
             if (dif === "medium") onSetMedium?.();
             if (dif === "hard") onSetHard?.();
